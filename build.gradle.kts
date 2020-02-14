@@ -64,12 +64,19 @@ subprojects {
         // Spring configuration processor
         annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
+        // Kotlin test libraries
         testImplementation(kotlin("test"))
+
+        // Spring test
         testImplementation("org.springframework.boot:spring-boot-starter-test") {
-            exclude(group="org.junit.vintage", module="junit-vintage-engine")
-            exclude(module="mockito-core")
+            exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+            exclude(module = "mockito-core")
         }
+
+        // Mockk
         testImplementation("com.ninja-squad:springmockk:1.1.2")
+
+        // Junit jupiter engine
         testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     }
 

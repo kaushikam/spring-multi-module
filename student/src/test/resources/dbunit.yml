@@ -1,0 +1,19 @@
+cacheConnection: true
+cacheTableNames: true
+leakHunter: false
+mergeDataSets: false
+caseInsensitiveStrategy: !!com.github.database.rider.core.api.configuration.Orthography 'UPPERCASE'
+properties:
+  batchedStatements:  false
+  qualifiedTableNames: false
+  caseSensitiveTableNames: false
+  batchSize: 100
+  fetchSize: 100
+  allowEmptyFields: false
+  escapePattern:
+  datatypeFactory: !!$datatypeFactory {}
+connectionConfig:
+  driver: "$datasourceDriverClassName"
+  url: "$datasourceUrl"
+  user: "$datasourceUsername"
+  password: "$datasourcePassword"
