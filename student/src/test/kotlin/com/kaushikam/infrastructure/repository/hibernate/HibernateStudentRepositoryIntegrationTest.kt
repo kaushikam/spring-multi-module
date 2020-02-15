@@ -2,27 +2,23 @@ package com.kaushikam.infrastructure.repository.hibernate
 
 import com.github.database.rider.core.api.dataset.DataSet
 import com.github.database.rider.core.api.dataset.ExpectedDataSet
-import com.github.database.rider.core.configuration.ConnectionConfig
-import com.github.database.rider.core.configuration.DBUnitConfig
-import com.github.database.rider.junit5.DBUnitExtension
-import com.kaushikam.StudentTestApplication
+import com.github.database.rider.junit5.api.DBRider
 import com.kaushikam.domain.model.student.Student
 import com.kaushikam.domain.model.student.StudentRepository
-import mu.KotlinLogging
+import com.kaushikam.spring.config.ApplicationConfig
+import com.kaushikam.spring.config.DomainConfig
+import com.kaushikam.spring.config.PersistenceConfig
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.springframework.transaction.annotation.Transactional
+import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-private val logger = KotlinLogging.logger {  }
+@DBRider
 
 @SpringBootTest(
-    classes = [StudentTestApplication::class]
+    classes = [DomainConfig::class, PersistenceConfig::class, ApplicationConfig::class]
 )
-@ExtendWith(SpringExtension::class, DBUnitExtension::class)
 class HibernateStudentRepositoryIntegrationTest {
 
     @Autowired
@@ -30,11 +26,13 @@ class HibernateStudentRepositoryIntegrationTest {
 
     @Test
     @DataSet("datasets/sql/repository/student-repository/before-save.yml")
-    //@ExpectedDataSet("datasets/sql/repository/student-repository/after-save.yml", ignoreCols = ["ID"])
+    @ExpectedDataSet("datasets/sql/repository/student-repository/after-save.yml")
     fun `test save student`() {
         val student = Student(name = "raju", age = 15, standard = 10)
         studentRepository.save(student)
-        logger.info { "Student id is ${student.id}" }
+        val saved = studentRepository.findAllByName("raju")
         assertNotNull(student.id)
+        assertEquals(1, studentRepository.count())
+        assertEquals(1, saved.size)
     }
 }

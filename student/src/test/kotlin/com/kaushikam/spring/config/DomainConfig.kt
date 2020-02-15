@@ -6,4 +6,4 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 @EntityScan(basePackageClasses = [ Student::class ])
-class DataConfig
+class DomainConfig
