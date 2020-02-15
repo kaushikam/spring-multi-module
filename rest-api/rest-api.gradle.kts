@@ -4,6 +4,11 @@ plugins {
 	war
 }
 
+tasks.withType<War> {
+	archiveBaseName.set("student")
+	archiveVersion.set(project.version.toString())
+}
+
 dependencies {
 	implementation(project(":student"))
 
