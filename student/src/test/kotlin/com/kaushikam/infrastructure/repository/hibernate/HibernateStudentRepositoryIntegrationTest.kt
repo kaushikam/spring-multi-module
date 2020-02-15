@@ -26,7 +26,7 @@ class HibernateStudentRepositoryIntegrationTest {
 
     @Test
     @DataSet("datasets/sql/repository/student-repository/before-save.yml")
-    @ExpectedDataSet("datasets/sql/repository/student-repository/after-save.yml")
+    @ExpectedDataSet("datasets/sql/repository/student-repository/after-save.yml", ignoreCols = ["id"])
     fun `test save student`() {
         val student = Student(name = "raju", age = 15, standard = 10)
         studentRepository.save(student)

@@ -1,0 +1,9 @@
+STUDENT:
+  - ID: 1
+    NAME: "raju"
+    AGE: 15
+    STANDARD: 10
+  - ID: 2
+    NAME: "shan"
+    AGE: 12
+    STANDARD: 6
